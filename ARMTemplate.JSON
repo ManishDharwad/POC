@@ -1,0 +1,76 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "functions": [],
+    "variables": {},
+    "resources": [
+        {
+            "name": "hellologicappstemplate2",
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/schemas/2016-06-01/Microsoft.Logic.json",
+                    "actions": {
+                        "Response": {
+                            "inputs": {
+                                "body": "Hello world!",
+                                "statusCode": 200
+                            },
+                            "runAfter": {
+                                "Send_an_email_(V2)": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Response"
+                        },
+                        "Send_an_email_(V2)": {
+                            "inputs": {
+                                "body": {
+                                    "Body": "<p>Test</p>",
+                                    "Subject": "Test",
+                                    "To": "Manish.Dharwadkar@sony.com"
+                                },
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['office365']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "path": "/v2/Mail"
+                            },
+                            "runAfter": {},
+                            "type": "ApiConnection"
+                        }
+                    },
+                    "contentVersion": "1.0.0.0",
+                    "outputs": {},
+                    "triggers": {
+                        "requestTrigger": {
+                            "inputs": {
+                                "method": "GET",
+                                "schema": {}
+                            },
+                            "kind": "Http",
+                            "type": "Request"
+                        }
+                    }
+                },
+                "parameters": {
+                    "connections": {
+                        "value": {
+                            "office365": {
+                                "connectionId": "/subscriptions/9fc728e8-3590-4c3a-b5f5-584cee2662d2/resourceGroups/POC/providers/Microsoft.Web/connections/office365",
+                                "connectionName": "office365",
+                                "id": "/subscriptions/9fc728e8-3590-4c3a-b5f5-584cee2662d2/providers/Microsoft.Web/locations/southindia/managedApis/office365"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}

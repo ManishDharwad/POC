@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "connections_name": {
+      "value": "office365"
+    },
+    "connections_displayname": {
+      "value": "office365"
+    },
+    "blob_connectionName":{
+      "value":"azureblob"
+    },
+    "workflows_name": {
+      "value": "newapp"
+    },
+    "subsription":{
+      "value": "9fc728e8-3590-4c3a-b5f5-584cee2662d2"
+    }
+  }
+}
